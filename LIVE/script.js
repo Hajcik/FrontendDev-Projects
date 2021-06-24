@@ -8,7 +8,7 @@ function onResize() {
 var canvas_object = c1.getContext("2d");
 var canvas_width = canvas_object.canvas.width;
 var canvas_height = canvas_object.canvas.height;
-var jump = 10;
+var jump = 150;
 var time;
 var MOUSE_POSITION = {
     x: 0,
@@ -71,6 +71,7 @@ function Square(x, y, side, color, color_in) {
     canvas_object.strokeStyle = color;
     canvas_object.strokeRect(x, y, side, side);
 }
+
 //szachownica
 function Chess(x, y, side, number, color, color_in) {
     for (var square = 0; square < number; square++) {
@@ -86,10 +87,10 @@ function Paint_chess(side, number) {
             var x1 = (canvas_width - 1) * side;
             var y1 = (square - 1) * side;
             if (chessboard_table[canvas_width][square] == 0) {
-                Square(x1, y1, side, "black", "#ffe3fe");
+                Square(x1, y1, side, "black", "#07080883");
             }
             if (chessboard_table[canvas_width][square] == 1) {
-                Square(x1, y1, side, "black", "#93329e");
+                Square(x1, y1, side, "black", "#eece67");
             }
         }
     }

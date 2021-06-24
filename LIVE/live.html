@@ -1,27 +1,32 @@
 <html lang="pl">
-    <head>
-        <meta charset="utf-8">
-        <title>Game of Life</title>
 
-        <meta name="description" content="Game of Life">
-        <meta name="author" content="Mariusz Jędrzejewski">
+<head>
+    <meta charset="utf-8">
 
-        <link rel="stylesheet" href="style.css">
-    </head>
+    <title>The Game of Life</title>
+    <meta name="description" content="Game Of Life">
 
-    <br onresize="onResize()">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<br onresize="onResize()">
     <div class="container">
-        <div class="canvas-container" id="canvas-container">
+        <div class = "canvas-container" id="canvas-container">
             <canvas id="c1" width="500" height="500"></canvas>
         </div>
-
+    
         <br />
-
-        <div class="inputs-container">
+    
+        <div class = "inputs-container">
             <input type="button" id="BUTstart" value=" START " onclick="FStartStop()" />
             <input type="range" id="zip" min="10" max="50" onchange="ZIP_change()" />
             <input type="text" id="zip_TXT" size="6" onchange="ZIP_change()" />
         </div>
     </div>
+    
+
+    <script src="script.js"></script>
+</body>
 
 </html>
