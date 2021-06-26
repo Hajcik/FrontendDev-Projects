@@ -31,3 +31,18 @@
     margin: 20px;
     background-color: rgb(180, 146, 67);
 }
+
+/* Ships */
+
+.ship div {
+    width: 40px;
+    height: 40px; 
+}
+
+.destroyer-container {
+    width: 80px;
+    height: 40px;
+    background-color: orange;
+    margin: 10px;
+    display: flex;
+}
