@@ -22,7 +22,7 @@ var SQUARE_POSITION = {
 function main() {
     change_color = false;
     chessboard_width = 500;
-    square_number = 10;
+    square_number = 20;
     square_side = chessboard_width / square_number;
     zip.value = square_number;
     ZIP_change();
