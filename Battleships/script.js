@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const turnDisplay = document.querySelector('#whose-go')
     const infoDisplay = document.querySelector('#info')
 
+    let isHorizontal = true;
+
     // Arrays
     const userSquares = []
     const computerSquares = []
@@ -93,7 +95,7 @@ function generate(ship) {
   if(randomDirection === 0) directions = 1
   if(randomDirection === 1) directions = 10
 
-  let randomStart = Math.floor(Math.random() * computerSquares.length - (ship.directions[0].length * directions))
+  let randomStart = Math.abs(Math.floor(Math.random() * computerSquares.length - (ship.directions[0].length * directions)))
 
   // checking if space is taken
   const isTaken = current.some(index => computerSquares[randomStart + index].classList.contains('taken'))
@@ -109,9 +111,86 @@ function generate(ship) {
   else generate(ship);
 }
 
+    // Rotate player's ships
+function rotate() {
+// we want to toggle
+    if(isHorizontal) {
+        destroyer.classList.toggle('destroyer-container-vertical')
+        submarine.classList.toggle('submarine-container-vertical')
+        cruiser.classList.toggle('cruiser-container-vertical')
+        battleship.classList.toggle('battleship-container-vertical')
+        carrier.classList.toggle('carrier-container-vertical')
+        isHorizontal = false
+        console.log(isHorizontal)
+        return
+    }
+
+    if(!isHorizontal) {
+        destroyer.classList.toggle('destroyer-container-vertical')
+        submarine.classList.toggle('submarine-container-vertical')
+        cruiser.classList.toggle('cruiser-container-vertical')
+        battleship.classList.toggle('battleship-container-vertical')
+        carrier.classList.toggle('carrier-container-vertical')
+        isHorizontal = true
+        console.log(isHorizontal)
+        return
+    }
+}
+
+    // Dragging ship start
+function dragStart(e) {
+console.log(e.target)
+console.log(this)
+}
+    // Dragging ship over
+function dragOver() {
+    
+}
+
+function dragEnter() {
+    
+}
+
+function dragLeave() {
+    
+}
+
+function dragDrop() {
+    
+}
+
+function dragEnd() {
+    
+}
+
+// Create grids
 createBoard(userGrid, userSquares);
 createBoard(computerGrid, computerSquares);
 
+// Generate AI ships on to the grid
 generate(shipsArray[0]);
+generate(shipsArray[1]);
+generate(shipsArray[2]);
+generate(shipsArray[3]);
+generate(shipsArray[4]);
+
+// Button functions exec
+rotateButton.addEventListener('click', rotate)
+
+
+// Move user ships
+ships.forEach(ship => ship.addEventListener('dragstart', dragStart)) // to fix
+userSquares.forEach(square => square.addEventListener('dragstart', dragStart))
+userSquares.forEach(square => square.addEventListener('dragover', dragOver))
+userSquares.forEach(square => square.addEventListener('dragenter', dragEnter))
+userSquares.forEach(square => square.addEventListener('dragleave', dragLeave))
+userSquares.forEach(square => square.addEventListener('drop', dragDrop))
+userSquares.forEach(square => square.addEventListener('dragend', dragEnd))
+
+let selectedShipNameWithIndex
+
+//ships.forEach(ship => ship.addEventListener('mousedown', (e) => {
+//    selectedShipNameWithIndex = e.target.id
+//}))
 })
 
