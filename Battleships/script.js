@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userGrid = document.querySelector('.grid-user')
     const computerGrid = document.querySelector('.grid-computer')
     const displayGrid = document.querySelector('.grid-display')
-    const ships = document.querySelector('.ship')
+    const ships = document.querySelectorAll('.ship')
     const destroyer = document.querySelector('.destroyer-container')
     const submarine = document.querySelector('.submarine-container')
     const cruiser = document.querySelector('.cruiser-container')
@@ -15,14 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const turnDisplay = document.querySelector('#whose-go')
     const infoDisplay = document.querySelector('#info')
 
-    let isHorizontal = true;
-
     // Arrays
     const userSquares = []
     const computerSquares = []
     
-    // Const variables
+    // Variables
     const width = 10
+    let selectedShipNameWithIndex
+    let draggedShip
+    let draggedShipLength
+    let isHorizontal = true;
 
     // Ships
     const shipsArray = [
@@ -137,26 +139,49 @@ function rotate() {
     }
 }
 
+
+// put shipId into the variable by clicking with mouse
+ships.forEach(ship => ship.addEventListener('mousedown', (e) => {
+    selectedShipNameWithIndex = e.target.id
+    console.log(selectedShipNameWithIndex)
+}))
+
     // Dragging ship start
-function dragStart(e) {
-console.log(e.target)
-console.log(this)
+function dragStart() {
+    draggedShip = this
+    draggedShipLength = draggedShip.length
+    console.log(draggedShip)
 }
     // Dragging ship over
-function dragOver() {
-    
+function dragOver(e) {
+    e.preventDefault()
 }
 
-function dragEnter() {
-    
+function dragEnter(e) {
+    e.preventDefault()
 }
 
 function dragLeave() {
-    
+    console.log('drag leave')
 }
 
 function dragDrop() {
+    let shipNameWithLastId = draggedShip.lastChild.id
+    let shipClass = shipNameWithLastId.slice(0, -2)
     
+    console.log(shipClass)
+
+    let lastShipIndex = parseInt(shipNameWithLastId.substr(-1))
+    //we exactly know where last element of the ship is
+    let shipLastId = lastShipIndex + parseInt(this.dataset.id)
+
+    selectedShipIndex = parseInt(selectedShipNameWithIndex.substr(-1))
+    //console.log(selectedShipIndex)
+
+    // we need to make sure that if we grab whenever on the ship
+    // it will not break when placing it near the edges, to secure this
+    // kind of situation
+    selectedShipIndex
 }
 
 function dragEnd() {
@@ -177,7 +202,6 @@ generate(shipsArray[4]);
 // Button functions exec
 rotateButton.addEventListener('click', rotate)
 
-
 // Move user ships
 ships.forEach(ship => ship.addEventListener('dragstart', dragStart)) // to fix
 userSquares.forEach(square => square.addEventListener('dragstart', dragStart))
@@ -187,10 +211,5 @@ userSquares.forEach(square => square.addEventListener('dragleave', dragLeave))
 userSquares.forEach(square => square.addEventListener('drop', dragDrop))
 userSquares.forEach(square => square.addEventListener('dragend', dragEnd))
 
-let selectedShipNameWithIndex
 
-//ships.forEach(ship => ship.addEventListener('mousedown', (e) => {
-//    selectedShipNameWithIndex = e.target.id
-//}))
 })
-
