@@ -123,7 +123,7 @@ function rotate() {
         battleship.classList.toggle('battleship-container-vertical')
         carrier.classList.toggle('carrier-container-vertical')
         isHorizontal = false
-        console.log(isHorizontal)
+    //    console.log(isHorizontal)
         return
     }
 
@@ -134,11 +134,10 @@ function rotate() {
         battleship.classList.toggle('battleship-container-vertical')
         carrier.classList.toggle('carrier-container-vertical')
         isHorizontal = true
-        console.log(isHorizontal)
+    //    console.log(isHorizontal)
         return
     }
 }
-
 
 // put shipId into the variable by clicking with mouse
 ships.forEach(ship => ship.addEventListener('mousedown', (e) => {
@@ -168,12 +167,16 @@ function dragLeave() {
 function dragDrop() {
     let shipNameWithLastId = draggedShip.lastChild.id
     let shipClass = shipNameWithLastId.slice(0, -2)
-    
+ 
+    console.log(shipNameWithLastId)
     console.log(shipClass)
 
     let lastShipIndex = parseInt(shipNameWithLastId.substr(-1))
     //we exactly know where last element of the ship is
+    console.log(lastShipIndex)
     let shipLastId = lastShipIndex + parseInt(this.dataset.id)
+    console.log(this.dataset.id)
+    console.log(shipLastId)
 
     selectedShipIndex = parseInt(selectedShipNameWithIndex.substr(-1))
     //console.log(selectedShipIndex)
@@ -181,7 +184,30 @@ function dragDrop() {
     // we need to make sure that if we grab whenever on the ship
     // it will not break when placing it near the edges, to secure this
     // kind of situation
-    selectedShipIndex
+
+    shipLastId = shipLastId - selectedShipIndex
+    console.log(shipLastId)
+    
+
+    if(isHorizontal) {
+        for(let i = 0; i < draggedShipLength; i++) {
+            userSquares[parseInt(this.dataset.id) - selectedShipIndex + i].classList.add('taken', shipClass)
+        }
+            
+        
+    }
+    else if (!isHorizontal) {
+        for(let i = 0; i < draggedShipLength; i++) {
+            userSquares[parseInt(this.dataset.id) - selectedShipIndex + width * i].classList.add('taken', shipClass)
+        }
+    }
+    else {
+        return
+    }
+
+    displayGrid.removeChild(draggedShip)
+
+    
 }
 
 function dragEnd() {
@@ -203,13 +229,11 @@ generate(shipsArray[4]);
 rotateButton.addEventListener('click', rotate)
 
 // Move user ships
-ships.forEach(ship => ship.addEventListener('dragstart', dragStart)) // to fix
+ships.forEach(ship => ship.addEventListener('dragstart', dragStart))
 userSquares.forEach(square => square.addEventListener('dragstart', dragStart))
 userSquares.forEach(square => square.addEventListener('dragover', dragOver))
 userSquares.forEach(square => square.addEventListener('dragenter', dragEnter))
 userSquares.forEach(square => square.addEventListener('dragleave', dragLeave))
 userSquares.forEach(square => square.addEventListener('drop', dragDrop))
 userSquares.forEach(square => square.addEventListener('dragend', dragEnd))
-
-
 })
